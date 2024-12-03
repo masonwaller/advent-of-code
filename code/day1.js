@@ -34,3 +34,28 @@ const getDistance = async () => {
 };
 
 getDistance();
+
+const getMultiplier = (x, list) => {
+  let multiplier = 0;
+  for (let i = 0; i < list.length; i++) {
+    if (x === list[i]) {
+      multiplier += 1;
+    }
+  }
+  return multiplier;
+};
+
+const getSimilarityScore = async () => {
+  const { list1, list2 } = await seperateLists();
+  const list1Sorted = list1.sort((a, b) => a - b);
+  const list2Sorted = list2.sort((a, b) => a - b);
+  let score = 0;
+  for (let i = 0; i < list1Sorted.length; i++) {
+    const multiplier = await getMultiplier(list1Sorted[i], list2Sorted);
+    score += list1Sorted[i] * multiplier;
+  }
+  console.log(score, "asdf");
+  return score;
+};
+
+getSimilarityScore();
